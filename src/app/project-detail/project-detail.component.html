@@ -1,0 +1,182 @@
+<div class="card">
+  <div class="card-header">
+    <i class="fa-thin fa-house-chimney-medical">Add Employee</i>
+  </div>
+  <div class="card-body">
+    <div class="container-fluid">
+      <div class="row">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col-md-6">
+              <label for="code">Code </label>
+              <input
+                type="text"
+                formControlName="code"
+                class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f['code'].errors }"
+              />
+              <div
+                *ngIf="submitted && f['code'].errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f['code'].errors['required']">
+                  Emp Code is required
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="fullname">Full Name </label>
+              <input
+                type="text"
+                formControlName="fullname"
+                class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f['fullname'].errors }"
+              />
+              <div
+                *ngIf="submitted && f['fullname'].errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f['fullname'].errors['required']">
+                  Fullname is required
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label for="department">Department </label>
+              <input
+                type="text"
+                formControlName="department"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid': submitted && f['department'].errors
+                }"
+              />
+              <div
+                *ngIf="submitted && f['department'].errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f['department'].errors['required']">
+                  Department is required
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="designation">Designation </label>
+              <input
+                type="text"
+                formControlName="designation"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid': submitted && f['designation'].errors
+                }"
+              />
+              <div
+                *ngIf="submitted && f['designation'].errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f['designation'].errors['required']">
+                  Designation is required
+                </div>
+                <div *ngIf="f['designation'].errors['minlength']">
+                  Designation must be at least 2 characters
+                </div>
+                <div *ngIf="f['designation'].errors['maxlength']">
+                  Username must not exceed 10 characters
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label for="ECodes">Salary </label>
+              <input
+                type="number"
+                formControlName="salary"
+                class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f['salary'].errors }"
+              />
+              <div
+                *ngIf="submitted && f['salary'].errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f['salary'].errors['required']">
+                  Salary is required
+                </div>
+                <div *ngIf="f['salary'].errors['min']">
+                  Salary must be at greater 0 digit
+                </div>
+              </div>
+            </div>
+          </div>
+          <Br />
+          <div class="form-group form-check">
+            <input
+              type="checkbox"
+              formControlName="acceptTerms"
+              class="form-check-input"
+              [ngClass]="{ 'is-invalid': submitted && f['acceptTerms'].errors }"
+            />
+            <label for="acceptTerms" class="form-check-label"
+              >I have read and agree to the Terms</label
+            >
+            <div
+              *ngIf="submitted && f['acceptTerms'].errors"
+              class="invalid-feedback"
+            >
+              Accept Terms is required
+            </div>
+          </div>
+          <div class="form-group offset-6">
+            <button type="submit" class="btn btn-primary">Register</button>
+            &nbsp;
+            <button
+              type="button"
+              (click)="onReset()"
+              class="btn btn-warning float-right"
+            >
+              Reset
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<Br />
+
+<div class="card">
+  <div class="card-header">Emploee Grid</div>
+  <div class="card-body">
+    <div class="container-fluid">
+      <ngx-datatable
+        [rows]="rows"
+        class="material"
+        [loadingIndicator]="loadingIndicator"
+        [columnMode]="'force'"
+        [headerHeight]="50"
+        [footerHeight]="50"
+        [rowHeight]="'auto'"
+        [columns]="columns"
+      >
+        <ngx-datatable-column
+          *ngFor="let column of columns; let i = index"
+          name="{{ column.name }}"
+        >
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Actions" prop="Id">
+          <ng-template
+            let-row="row"
+            let-value="value"
+            let-rowIndex="rowIndex"
+            ngx-datatable-cell-template
+          >
+            <button class="btn btn-dark" (click)="Onedit(row)">Edit</button>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+</div>
